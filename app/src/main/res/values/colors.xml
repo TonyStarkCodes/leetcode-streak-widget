@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand / Accents -->
+    <color name="leetcode_brand">#FFA116</color>
+    <color name="leetcode_orange">#FF7A00</color>
+    <color name="leetcode_easy">#00B8A3</color>
+    <color name="leetcode_medium">#FFC01E</color>
+    <color name="leetcode_hard">#FF375F</color>
+
+    <!-- Light Theme Widget Palette -->
+    <color name="widget_background">#FFFFFF</color>
+    <color name="widget_card_bg">#F4F5F7</color>
+    <color name="widget_surface_elevated">#E5E7EB</color>
+    <color name="widget_border">#E2E8F0</color>
+    <color name="widget_text_primary">#0F172A</color>
+    <color name="widget_text_secondary">#475569</color>
+    <color name="widget_text_tertiary">#94A3B8</color>
+    <color name="widget_divider">#E2E8F0</color>
+    <color name="widget_btn_bg">#EDF2F7</color>
+
+    <!-- Status: Solved Today -->
+    <color name="status_solved_container">#D1FAE5</color>
+    <color name="status_solved_content">#047857</color>
+
+    <!-- Status: Streak at Risk / Pending -->
+    <color name="status_pending_container">#FEF3C7</color>
+    <color name="status_pending_content">#B45309</color>
+
+    <!-- Status: Streak Broken -->
+    <color name="status_broken_container">#FEE2E2</color>
+    <color name="status_broken_content">#B91C1C</color>
+
+    <!-- Compose App Colors -->
+    <color name="primary">#FFA116</color>
+    <color name="on_primary">#000000</color>
+    <color name="primary_container">#FFECCF</color>
+    <color name="on_primary_container">#5E3500</color>
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#1A1A1A</color>
+</resources>

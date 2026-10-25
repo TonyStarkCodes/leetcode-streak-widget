@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LeetCode Streak</string>
+    <string name="widget_2x1_name">LeetCode Streak (2x1)</string>
+    <string name="widget_2x2_name">LeetCode Streak &amp; Stats (2x2)</string>
+    <string name="widget_4x2_name">LeetCode Dashboard (4x2)</string>
+    <string name="widget_description">Displays your current LeetCode streak, daily problem status, and solved counts.</string>
+</resources>

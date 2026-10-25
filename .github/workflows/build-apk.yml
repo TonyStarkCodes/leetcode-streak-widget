@@ -1,0 +1,81 @@
+name: Build LeetCode Streak Widget APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Package APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Ensure Gradle Wrapper
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Generating Gradle wrapper..."
+            gradle wrapper --gradle-version 8.6
+          fi
+          chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Prepare APK Asset
+        run: |
+          mkdir -p release-assets
+          cp app/build/outputs/apk/debug/app-debug.apk release-assets/leetcode-streak-widget.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: leetcode-streak-widget
+          path: release-assets/leetcode-streak-widget.apk
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish GitHub Release
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')) || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "LeetCode Streak Widget v1.0.0"
+          body: |
+            ## 🔥 LeetCode Streak Widget v1.0.0
+
+            ### 📱 What's New:
+            - **100% Accurate LeetCode Streak Calculation**: Correctly resolves UTC midnight boundaries & active day continuity. Never resets streak while today is still in progress!
+            - **3 Beautiful Modern Widgets**:
+              - **2x1 Widget**: Compact streak counter & live solved status.
+              - **2x2 Widget**: Medium card with large streak, flame badge, problem count, and 1-tap refresh.
+              - **4x2 Widget**: Full dashboard with streak, Easy/Medium/Hard breakdown, ranking, and refresh button.
+            - **Automatic Light / Dark Mode**: Seamlessly switches to match your system theme.
+            - **Zero Battery Drain**: Battery-friendly manual refresh with optional low-impact periodic sync.
+            - **Direct Home Screen Pinning**: Add any widget right from within the app.
+
+            ### 📥 Download & Install
+            Download **`leetcode-streak-widget.apk`** below to install directly on your Android device.
+          files: release-assets/leetcode-streak-widget.apk
+          draft: false
+          prerelease: false
+          make_latest: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
